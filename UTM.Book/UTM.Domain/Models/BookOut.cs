@@ -1,8 +1,13 @@
-﻿using UTM.Domain.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UTM.Domain.Enums;
 
 namespace UTM.Domain.Models
 {
-    public class Book
+    public class BookOut
     {
         public string Title { get; set; } = string.Empty;
 
