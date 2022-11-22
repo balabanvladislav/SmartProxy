@@ -60,7 +60,7 @@ namespace UTM.SyncNode.Services
                     {
                         var url = $"{receiver}/{entity.ObjectType}/sync";
                         try
-                        {
+                       {
                             var result = HttpClientUtility.SendJson(entity.JsonData, url, entity.SyncType);
 
                             if (!result.Result.IsSuccessStatusCode)

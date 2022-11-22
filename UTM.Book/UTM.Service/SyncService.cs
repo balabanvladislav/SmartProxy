@@ -25,7 +25,7 @@ namespace UTM.BookAPI.Services
         public async Task<HttpResponseMessage> Delete(T record)
         {
             var syncType = _settings.DeleteHttpMethod;
-            var json = ToSyncEntityJson  (record, syncType);
+            var json = ToSyncEntityJson(record, syncType);
 
             var response = await HttpClientUtility.SendJson(json, _settings.Host, "POST");
 

@@ -83,7 +83,7 @@ namespace UTM.BookAPI.Controllers
         {
             var existingBook = await _bookService.GetBookById(book.Id);
 
-            if(existingBook == null || existingBook.LastChangedAt > book.LastChangedAt)
+            if(existingBook == null || existingBook.LastChangedAt < book.LastChangedAt)
             {
                 await _bookService.UpsertBook(book);
             }
