@@ -9,6 +9,9 @@ namespace UTM.Domain.Models
 {
     public class BookOut
     {
+        public Guid Id { get; set; }
+        public DateTime LastChangedAt { get; set; }
+
         public string Title { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;

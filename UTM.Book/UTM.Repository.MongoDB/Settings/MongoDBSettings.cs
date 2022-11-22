@@ -20,10 +20,6 @@ namespace UTM.Repository.MongoDB.Settings
 	/// <inheritdoc/>
 	public class MongoDBSettings : IMongoDBSettings
 	{
-		public MongoDBSettings()
-		{
-
-		}
 		private readonly IOptions<MongoDBOptions> _options;
 
 		public MongoDBSettings(IOptions<MongoDBOptions> options)

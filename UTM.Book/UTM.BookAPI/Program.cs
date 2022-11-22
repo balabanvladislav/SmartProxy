@@ -1,9 +1,12 @@
 using AutoMapper;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using UTM.BookAPI.Services;
 using UTM.Domain.Models;
 using UTM.Repository.MongoDB;
 using UTM.Repository.MongoDB.Settings;
 using UTM.Service;
+using UTM.Service.Settigs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,8 +53,13 @@ app.Run();
 
 void RegisterConfiguration(IServiceCollection services)
 {
+    services.AddHttpContextAccessor();
+
     services.Configure<MongoDBOptions>(builder.Configuration.GetSection("mongodb"));
     services.AddSingleton<IMongoDBSettings, MongoDBSettings>();
+
+    services.Configure<SyncServiceOptions>(builder.Configuration.GetSection("SyncServiceSettings"));
+    services.AddSingleton<ISyncServiceSettings, SyncServiceSettings>();
 }
 
 void RegisterRepositories(IServiceCollection services)
@@ -62,4 +70,5 @@ void RegisterRepositories(IServiceCollection services)
 void RegisterServices(IServiceCollection services)
 {
     services.AddScoped<IBookService, BookService>();
+    services.AddScoped<ISyncService<Book>, SyncService<Book>>();
 }

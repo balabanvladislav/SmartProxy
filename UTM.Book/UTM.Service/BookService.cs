@@ -9,9 +9,11 @@ namespace UTM.Service
         public Task<List<Book>> GetAllBooks();
         public Task<BookOut> GetBookById(Guid Id);
         public Task<Book> AddBook(BookIn book);
-        public Task UpsertBook(Book book);
+        public Task<Book> UpsertBook(Book book);
         public Task DeleteBook(Guid id);
         public Task DeleteAll();
+
+        public Task Test();
     }
     public class BookService : IBookService
     {
@@ -49,15 +51,39 @@ namespace UTM.Service
             return _mapper.Map<BookOut>(record);
         }
         
-        public async Task UpsertBook(Book book)
+        public async Task<Book> UpsertBook(Book book)
         {
             book.LastChangedAt = DateTime.UtcNow;
+
             await _repository.UpsertRecord(book);
+
+            return book;
         }
 
         public async Task DeleteAll()
         {
             await _repository.DeleteAll();
+        }
+
+        public async Task Test()
+        {
+            List<BookIn> booksIn = new List<BookIn>
+            {
+                new BookIn
+                {
+                    Title = "1"
+                },
+                new BookIn
+                {
+                    Title = "2"
+                }
+            };
+
+            IEnumerable<BookIn> booksInEn = booksIn;
+            
+            var test = _mapper.Map<List<Book>>(booksInEn);
+
+            await Task.Delay(0);
         }
     }
 }
