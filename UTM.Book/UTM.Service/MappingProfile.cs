@@ -12,8 +12,9 @@ namespace UTM.Service
     {
         public MappingProfile()
         {
-            CreateMap<BookIn, Book>();
+            CreateMap<BookIn, Book>().ReverseMap();
             CreateMap<Book, BookOut>().ReverseMap();
+            CreateMap<BookIn, BookOut>().ReverseMap();
         }
     }
 }

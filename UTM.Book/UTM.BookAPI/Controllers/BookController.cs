@@ -23,7 +23,10 @@ namespace UTM.BookAPI.Controllers
         [HttpGet]
         public async Task<List<Book>> GetAllBooks()
         {
-            return await _bookService.GetAllBooks();
+            var book = await _bookService.GetAllBooks();
+
+            var booksIn = _mapper.Map<List<Book>>(book);
+            return booksIn;
         }
 
         [HttpGet("{id}")]

@@ -6,7 +6,7 @@ namespace UTM.Service
 {
     public interface IBookService
     {
-        public Task<List<Book>> GetAllBooks();
+        public Task<List<BookIn>> GetAllBooks();
         public Task<BookOut> GetBookById(Guid Id);
         public Task<Book> AddBook(BookIn book);
         public Task<Book> UpsertBook(Book book);
@@ -35,9 +35,15 @@ namespace UTM.Service
             return await _repository.InsertRecord(book);
         }
 
-        public async Task<List<Book>> GetAllBooks()
+        public async Task<List<BookIn>> GetAllBooks()
         {
-            return await _repository.GetAll();
+            List<Book> books = await _repository.GetAll();
+
+            IEnumerable<BookOut> booksOut = _mapper.Map<List<Book>, IEnumerable<BookOut>>(books);
+
+            List<BookIn> bookInList = _mapper.Map<List<BookIn>>(booksOut);
+
+            return bookInList;
         }
 
         public async Task DeleteBook(Guid Id)
